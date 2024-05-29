@@ -1,6 +1,6 @@
 {
   "name": "zotto",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "CLI to skaffold a CRUD express.js app",
   "main": "index.js",
   "scripts": {
@@ -10,11 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/gabosotob/zotto.git"
   },
-  "keywords": [
-    "express",
-    "skaffold",
-    "layered"
-  ],
+  "keywords": [],
   "author": "Gabriel Soto Barba",
   "license": "ISC",
   "bugs": {
