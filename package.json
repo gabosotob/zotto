@@ -1,0 +1,24 @@
+{
+  "name": "zotto",
+  "version": "1.0.0",
+  "description": "CLI to skaffold a CRUD express.js app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabosotob/zotto.git"
+  },
+  "keywords": [
+    "express",
+    "skaffold",
+    "layered"
+  ],
+  "author": "Gabriel Soto Barba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabosotob/zotto/issues"
+  },
+  "homepage": "https://github.com/gabosotob/zotto#readme"
+}
