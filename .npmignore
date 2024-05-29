@@ -1,0 +1,19 @@
+# Ignore development files and directories
+/node_modules
+/tests
+/src
+
+# Ignore configuration files
+*.config.js
+*.config.ts
+tsconfig.json
+
+# Ignore source control files
+.git/
+.gitignore
+
+
+# Ignore miscellaneous files
+.env
+.DS_Store
+Thumbs.db

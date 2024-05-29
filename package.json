@@ -2,8 +2,12 @@
   "name": "zotto",
   "version": "0.0.1",
   "description": "CLI to skaffold a CRUD express.js app",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/gabosotob/zotto/issues"
   },
-  "homepage": "https://github.com/gabosotob/zotto#readme"
+  "homepage": "https://github.com/gabosotob/zotto#readme",
+  "devDependencies": {
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
 }
