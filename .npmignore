@@ -2,15 +2,25 @@
 /node_modules
 /tests
 /src
+/templates
+/.vscode
 
 # Ignore configuration files
 *.config.js
 *.config.ts
 tsconfig.json
 
+# Ignore linter files
+.eslintrc
+.prettierrc.json
+
+# Ignore bash files
+*.sh
+
 # Ignore source control files
 .git/
 .gitignore
+.gitattributes
 
 # Ignore miscellaneous files
 .env
