@@ -1,0 +1,13 @@
+import { ZController, ZControllerParams } from 'zotto';
+
+type ResourceType = {{name}};
+
+export class {{className}} extends ZController<ResourceType> {
+	constructor({ service, externalServices }: ZControllerParams<ResourceType>) {
+		super({
+			name: '{{name}} Controller',
+			service,
+			externalServices,
+		});
+	}
+}

@@ -12,7 +12,6 @@ tsconfig.json
 .git/
 .gitignore
 
-
 # Ignore miscellaneous files
 .env
 .DS_Store
