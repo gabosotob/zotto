@@ -2,12 +2,12 @@ import { Request } from 'express';
 
 import { ZControllerParams } from '../../types';
 import { Id } from '../../types/id.type';
-import { CrudService } from '../services/crud-service.abstract';
+import { Zervice } from '../services/zervice.abstract';
 import { CrudController } from './crud-controller.abstract';
 import { Delete, Get, Post, Put } from './decorators/http-method.decorators';
 
 export abstract class ZController<T> extends CrudController<T> {
-    protected service: CrudService<T>;
+    protected service: Zervice<T>;
 
     constructor(name: string, params: ZControllerParams<T>) {
         super(name, params);
