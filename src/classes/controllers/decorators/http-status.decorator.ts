@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Response } from 'express';
 
-import { ZottoError } from '../classes/exceptions/zotto-error.exception';
+import { ZottoError } from '../../exceptions/zotto-error.exception';
 
-function HttpStatus(status: number) {
+export function HttpStatus(status: number) {
     return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
         const originalMethod = descriptor.value;
 
@@ -26,5 +26,3 @@ function HttpStatus(status: number) {
         return descriptor;
     };
 }
-
-export default HttpStatus;

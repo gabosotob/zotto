@@ -1,1 +1,1 @@
-export * from "./get-new-router"
+export * from './get-new-router';

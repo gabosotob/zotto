@@ -9,7 +9,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "npm install && tsup && copy-templates.sh"
+    "build": "npm install && tsup && ./scripts/copy-templates.sh"
   },
   "repository": {
     "type": "git",

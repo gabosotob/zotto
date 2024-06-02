@@ -1,20 +1,18 @@
 import { Request } from 'express';
 
-import { Delete, Get, Post, Put } from '../decorators/http-method.decorators';
-import { Controller, ControllerParams } from '../interfaces/controller.interface';
-import { CrudController } from '../interfaces/crud-controller.interface';
-import { CrudService } from '../interfaces/crud-service.interface';
-import { Id } from '../types/id.type';
+import { ZControllerParams } from '../../types';
+import { Id } from '../../types/id.type';
+import { CrudService } from '../services/crud-service.abstract';
+import { CrudController } from './crud-controller.abstract';
+import { Delete, Get, Post, Put } from './decorators/http-method.decorators';
 
-export abstract class ZController<T> implements CrudController<T> {
-    readonly name: string;
-    readonly service: CrudService<T>;
-    readonly externalServices: Controller<unknown>['externalServices'];
+export abstract class ZController<T> extends CrudController<T> {
+    protected service: CrudService<T>;
 
-    constructor({ name, service, externalServices }: ControllerParams<T> & { service: CrudService<T> }) {
-        this.name = name;
-        this.service = service;
-        this.externalServices = externalServices;
+    constructor(name: string, params: ZControllerParams<T>) {
+        super(name, params);
+
+        this.service = params.service;
 
         this.getAll = this.getAll.bind(this);
         this.getById = this.getById.bind(this);

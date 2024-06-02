@@ -1,8 +1,8 @@
-import { HttpStatus } from '../../enums/http-status.enum';
+import { HttpStatusEnum } from '../../enums/http-status.enum';
 import { HttpException } from './http-exception';
 
 export class NotFoundException extends HttpException {
     constructor(message: string) {
-        super(message, HttpStatus.NOT_FOUND);
+        super(message, HttpStatusEnum.NOT_FOUND);
     }
 }

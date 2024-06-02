@@ -1,13 +1,12 @@
-import { CrudService } from '../interfaces/crud-service.interface';
-import { Repository } from '../interfaces/repository.interface';
-import { Id } from '../types/id.type';
-import { NotFoundException } from './exceptions';
+import { Id } from '../../types/id.type';
+import { NotFoundException } from '../exceptions';
+import { Repository } from '../repository/repository.abstract';
+import { CrudService } from './crud-service.abstract';
 
-export abstract class Zervice<T> implements CrudService<T> {
-    constructor(
-        readonly name: string,
-        readonly repository: Repository<T>,
-    ) {}
+export abstract class Zervice<T> extends CrudService<T> {
+    constructor(name: string, repository: Repository<T>) {
+        super(name, repository);
+    }
 
     async getById(id: Id) {
         const resource = await this.repository.readById(id);

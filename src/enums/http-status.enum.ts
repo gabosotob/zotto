@@ -1,4 +1,4 @@
-export enum HttpStatus {
+export enum HttpStatusEnum {
     OK = 200,
     CREATED = 201,
     ACCEPTED = 202,

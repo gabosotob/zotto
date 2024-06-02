@@ -1,2 +1,2 @@
 export * from './middleware.type';
-export * from './z-controller-params';
+export * from '../classes/controllers/z-controller-params';
