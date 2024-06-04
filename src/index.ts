@@ -1,4 +1,5 @@
 export * from './classes';
-export * from './classes/controllers/decorators';
+export * from './decorators';
 export * from './enums';
 export * from './types';
+export * from './factories';

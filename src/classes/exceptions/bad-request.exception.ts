@@ -1,4 +1,4 @@
-import { HttpStatusEnum } from '../../enums/http-status.enum';
+import { HttpStatusEnum } from '../../enums/http.enums';
 import { HttpException } from './http-exception';
 
 export class BadRequestException extends HttpException {
