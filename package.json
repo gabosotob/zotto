@@ -1,6 +1,6 @@
 {
   "name": "zotto",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Components for building a CRUD express.js app",
   "bin": {
     "zotto": "./dist/index.js"
@@ -12,8 +12,7 @@
     "start": "nodemon sample-server.ts",
     "build": "npm install && tsc && tsup",
     "pub": "npm run build && npm publish --access public",
-    "push": "git add . && git commit -m \"chore: update\" && git push",
-    "push:force": "git add . && git commit -m \"chore: update\" && git push --force"
+    "push:version": "git add . && git commit -m \"chore: update version\" && git push"
   },
   "repository": {
     "type": "git",

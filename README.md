@@ -1,3 +1,3 @@
 # zotto
 
-CLI to skaffold a CRUD express.js app
+Components for building a CRUD express.js app
