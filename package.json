@@ -12,7 +12,8 @@
     "start": "nodemon sample-server.ts",
     "build": "npm install && tsc && tsup",
     "pub": "npm run build && npm publish --access public",
-    "push:version": "git add . && git commit -m \"chore: update version\" && git push"
+    "push:version": "npm run build && git add . && git commit -m \"chore: update version\" && git push",
+    "push:chore": "npm run build && git add . && git commit -m \"chore: update\" && git push"
   },
   "repository": {
     "type": "git",
