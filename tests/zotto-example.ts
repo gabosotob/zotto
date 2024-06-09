@@ -1,11 +1,11 @@
 import { Request } from 'express';
 
-import { NotFoundException } from './src/classes/exceptions/not-found.exception';
-import { Delete, Get, Post, Put } from './src/decorators/http-method.decorators';
-import { Resource } from './src/decorators/resource.decorator';
-import { ResourceFactory } from './src/factories/resource.factory';
-import { Id } from './src/types/id.type';
-import MockCrudService from './tests/mocks/service.mock';
+import { NotFoundException } from '../src/classes/exceptions/not-found.exception';
+import { Delete, Get, Post, Put } from '../src/decorators/controller.decorators';
+import { Resource } from '../src/decorators/resource.decorator';
+import { ResourceFactory } from '../src/factories/resource.factory';
+import { Id } from '../src/types/id.type';
+import MockCrudService from './mocks/service.mock';
 
 const service = new MockCrudService();
 

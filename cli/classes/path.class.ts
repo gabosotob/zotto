@@ -1,5 +1,9 @@
 export class Path {
     static buildFilePath(fileName: string, directoryPath?: string): string {
-        return `${process.cwd()}${directoryPath ? `/${directoryPath}` : ''}/${fileName}`;
+        if (directoryPath) {
+            return process.cwd() + '/' + directoryPath + '/' + fileName;
+        } else {
+            return process.cwd() + '/' + fileName;
+        }
     }
 }

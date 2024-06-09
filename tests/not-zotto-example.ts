@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import MockCrudService from './tests/mocks/service.mock';
+import MockCrudService from './mocks/service.mock';
 
 const router = Router();
 const service = new MockCrudService();

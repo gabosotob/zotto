@@ -1,3 +1,3 @@
 export * from './http-status.decorator';
-export * from './http-method.decorators';
+export * from './controller.decorators';
 export * from './resource.decorator';

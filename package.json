@@ -9,7 +9,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "start": "nodemon sample-server.ts",
+    "start": "nodemon ./tests/sample-server.ts",
     "build": "npm install && tsc && tsup && ts-node ./scripts/copy-templates.js",
     "build:watch": "npm install && tsc && tsup --watch",
     "pub": "npm run build && npm publish --access public",

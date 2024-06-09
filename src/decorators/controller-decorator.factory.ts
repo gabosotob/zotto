@@ -1,7 +1,6 @@
 import { Response } from 'express';
 
 import { OkResponseFactory } from '../classes/responses/ok-response.factory';
-import { EMPTY_PATH } from '../constants/path.constants';
 import { ROUTE_PATH_INFO_SYMBOL } from '../constants/symbols.constants';
 import { HTTP_STATUS_BY_METHOD, HttpMethod } from '../enums/http.enums';
 import { RoutePathInfo } from '../types/route-path-info.type';
@@ -9,7 +8,7 @@ import { toPath } from '../utils/path.utils';
 import { controllerErrorExceptionHandler } from './controller-error-exception.handler';
 
 export class ControllerDecoratorFactory {
-    static create(method: HttpMethod, path: string = EMPTY_PATH) {
+    static create(method: HttpMethod, path?: string) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
             const originalMethod = descriptor.value;

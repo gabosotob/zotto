@@ -1,1 +1,2 @@
-export const EMPTY_PATH = '/';
+export const PATH_SEPARATOR = '/';
+export const EMPTY_PATH = '';

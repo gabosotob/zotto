@@ -1,3 +1,3 @@
 # zotto
 
-Components for building a CRUD express.js app
+Tools and components for building a CRUD express.js app

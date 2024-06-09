@@ -1,5 +1,14 @@
-import { EMPTY_PATH } from '../constants/path.constants';
+import { EMPTY_PATH, PATH_SEPARATOR } from '../constants/path.constants';
 
-export const toPath = (path: string): string => (path.startsWith(EMPTY_PATH) ? path : `${EMPTY_PATH}${path}`);
+export const toPath = (path?: string): string => {
+    if (path !== undefined) {
+        return path.startsWith(PATH_SEPARATOR) ? path : `${PATH_SEPARATOR}${path}`;
+    } else {
+        return EMPTY_PATH;
+    }
+};
+
 export const joinPaths = (...paths: string[]): string =>
-    paths.filter(path => path !== EMPTY_PATH).join('') || EMPTY_PATH;
+    paths.filter(path => path !== PATH_SEPARATOR).join('') || PATH_SEPARATOR;
+
+export const toAbsolutePath = (basePath: string, relativePath: string) => `${basePath}${relativePath}`;

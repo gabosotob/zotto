@@ -1,3 +1,4 @@
-import { Constructor } from './constructor.type';
+import { ClassType } from './class.type';
 
-export type FactoryInstantiable<T> = Constructor<T> & { createInstance: (...args: unknown[]) => T };
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export type FactoryInstantiable<T = any> = ClassType<T> & { createInstance: (...args: any[]) => T };
