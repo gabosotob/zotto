@@ -1,7 +1,9 @@
-import { HttpMethod } from '../enums/http.enums';
+import { ControllerMethod } from '../enums/http.enums';
 
 export type RoutePathInfo = {
     path: string;
-    method: HttpMethod;
+    method: ControllerMethod;
     handlerName: string;
+    isErrorHandler?: boolean;
+    isMiddleware?: boolean;
 };

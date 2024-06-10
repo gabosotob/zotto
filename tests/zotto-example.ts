@@ -1,8 +1,6 @@
 import { Request } from 'express';
 
-import { NotFoundException } from '../src/classes/exceptions/not-found.exception';
-import { Delete, Get, Post, Put } from '../src/decorators/controller.decorators';
-import { Resource } from '../src/decorators/resource.decorator';
+import { Delete, Get, Post, Put, Resource } from '../src/decorators';
 import { ResourceFactory } from '../src/factories/resource.factory';
 import { Id } from '../src/types/id.type';
 import MockCrudService from './mocks/service.mock';
@@ -11,7 +9,6 @@ const service = new MockCrudService();
 
 @Resource('zottos')
 export class ZottoResource {
-    constructor() {}
     @Get()
     getAll() {
         return service.read();
@@ -19,11 +16,7 @@ export class ZottoResource {
 
     @Get(':id')
     async getById({ params }: Request<{ id: Id }>) {
-        const data = await service.readById(params.id);
-
-        if (!data) {
-            throw new NotFoundException('Not found');
-        }
+        return service.readById(params.id);
     }
 
     @Post()
@@ -33,23 +26,11 @@ export class ZottoResource {
 
     @Put(':id')
     async put({ params, body }: Request<{ id: Id }>) {
-        const idData = await service.readById(params.id);
-
-        if (!idData) {
-            throw new NotFoundException('Not found');
-        }
-
-        return service.update(body);
+        return service.update(params.id, body);
     }
 
     @Delete(':id')
     async delete({ params }: Request<{ id: Id }>) {
-        const idData = await service.readById(params.id);
-
-        if (!idData) {
-            throw new NotFoundException('Not found');
-        }
-
         await service.delete(params.id);
 
         return 'Deleted successfully';

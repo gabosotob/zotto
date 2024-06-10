@@ -1,39 +1,36 @@
-export class MockCrudService<T extends { id: string | number }> {
-    private data: T[] = [];
+import { Id, NotFoundException } from '../../src';
+import { LocalRepo } from '../../src/classes/repository/local-repo.';
 
+const repo = LocalRepo.getInstance();
+
+export class MockCrudService<T extends { id: string | number }> {
     public create(item: T): Promise<T> {
-        this.data.push(item);
-        return Promise.resolve(item);
+        return repo.create(item);
     }
 
     public read(): Promise<T[]> {
-        return Promise.resolve(this.data);
+        return repo.readAll();
     }
 
-    public readById(id: string | number): Promise<T> {
-        const item = this.data.find(dataItem => dataItem.id === id);
-        if (item) {
-            return Promise.resolve(item);
-        }
-        return Promise.reject(new Error('Item not found'));
+    public async readById(id: Id): Promise<T> {
+        const item = await repo.read(id);
+        if (!item) throw new NotFoundException('Item not found');
+
+        return item;
     }
 
-    public update(item: T): Promise<T> {
-        const index = this.data.findIndex(dataItem => dataItem.id === item.id);
-        if (index !== -1) {
-            this.data[index] = item;
-            return Promise.resolve(item);
-        }
-        return Promise.reject(new Error('Item not found'));
+    public async update(id: Id, dto: T): Promise<T> {
+        const item = await repo.read(id);
+        if (!item) throw new NotFoundException('Item not found');
+
+        return repo.update(id, dto);
     }
 
-    public delete(id: string | number): Promise<void> {
-        const index = this.data.findIndex(item => item.id === id);
-        if (index !== -1) {
-            this.data.splice(index, 1);
-            return Promise.resolve();
-        }
-        return Promise.reject(new Error('Item not found'));
+    public async delete(id: Id): Promise<void> {
+        const item = await repo.read(id);
+        if (!item) throw new NotFoundException('Item not found');
+
+        return repo.delete(id);
     }
 }
 

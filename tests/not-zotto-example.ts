@@ -72,7 +72,7 @@ router.put('/not-zottos/:id', async (req, res) => {
             throw new Error('Not found');
         }
 
-        const data = await service.update(req.body);
+        const data = await service.update(req.params.id, req.body);
 
         res.status(200).json({
             ok: true,

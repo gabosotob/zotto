@@ -7,6 +7,7 @@ import { zottoResource } from './zotto-example';
 
 const app = express();
 
+app.use(express.json());
 app.use(NotZottoResourceRouter);
 app.use(zottoResource.getRouter());
 

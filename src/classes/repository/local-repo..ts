@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Entity } from '../../interfaces/entity.interface';
 import { IRepo } from '../../interfaces/repo.interface';
-import { Singleton } from '../../interfaces/singleton.interface';
 import { Id } from '../../types/id.type';
 
 /**
@@ -8,8 +8,11 @@ import { Id } from '../../types/id.type';
  * Serves as a local repository for entities. This is useful for testing and development.
  */
 export class LocalRepo<T extends Entity> implements IRepo<T> {
-    private static instance: Singleton;
-    getInstance(): Singleton {
+    private static instance: LocalRepo<any>;
+
+    private constructor() {}
+
+    static getInstance(): LocalRepo<any> {
         if (!LocalRepo.instance) {
             LocalRepo.instance = new LocalRepo();
         }

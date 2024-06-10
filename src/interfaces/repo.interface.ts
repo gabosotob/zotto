@@ -1,8 +1,7 @@
 import { Id } from '../types/id.type';
 import { Entity } from './entity.interface';
-import { Singleton } from './singleton.interface';
 
-export interface IRepo<T extends Entity> extends Singleton {
+export interface IRepo<T extends Entity> {
     create(entity: Omit<T, 'id'>): Promise<T>;
     read(id: Id): Promise<T>;
     readAll(): Promise<T[]>;

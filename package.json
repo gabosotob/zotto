@@ -10,11 +10,11 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "start": "nodemon ./tests/sample-server.ts",
-    "build": "npm install && tsc && tsup && ts-node ./scripts/copy-templates.js",
-    "build:watch": "npm install && tsc && tsup --watch",
-    "pub": "npm run build && npm publish --access public",
-    "push:version": "npm run build && git add . && git commit -m \"chore: update version\" && git push",
-    "push:chore": "npm run build && git add . && git commit -m \"chore: update\" && git push"
+    "build": "pnpm install && tsc && tsup && ts-node ./scripts/copy-templates.js",
+    "build:watch": "pnpm install && tsc && tsup --watch",
+    "pub": "pnpm run build && npm publish --access public",
+    "push:version": "pnpm run build && git add . && git commit -m \"chore: update version\" && git push",
+    "push:chore": "pnpm run build && git add . && git commit -m \"chore: update\" && git push"
   },
   "repository": {
     "type": "git",
