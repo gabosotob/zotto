@@ -46,6 +46,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@swc/core": "^1.5.27",
     "commander": "^12.1.0",
     "express": "^4.19.2",
     "handlebars": "^4.7.8",
