@@ -2,6 +2,8 @@ import { readFileSync } from 'fs';
 import handlebars from 'handlebars';
 import path from 'path';
 
+import { ZottoError } from '../../src/classes/exceptions/zotto-error.exception';
+
 export class Template {
     static getTemplateDelegate(type: string): handlebars.TemplateDelegate {
         const templatePath = path.resolve(__dirname, `../templates/${type}.hbs`);
@@ -9,7 +11,7 @@ export class Template {
         try {
             file = readFileSync(templatePath, 'utf-8');
         } catch (error) {
-            throw new Error(`Template file "${type}" not found!`);
+            throw new ZottoError(`Template file "${type}" not found!`);
         }
 
         return handlebars.compile(file);

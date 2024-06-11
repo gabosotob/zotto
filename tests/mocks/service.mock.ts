@@ -1,8 +1,10 @@
 import { Id, NotFoundException } from '../../src';
 import { LocalRepo } from '../../src/classes/repository/local-repo.';
+import { Service } from '../../src/decorators/service.decorator';
 
 const repo = LocalRepo.getInstance();
 
+@Service
 export class MockCrudService<T extends { id: string | number }> {
     public create(item: T): Promise<T> {
         return repo.create(item);

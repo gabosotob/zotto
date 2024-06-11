@@ -2,13 +2,13 @@ import 'reflect-metadata';
 
 import express from 'express';
 
-import NotZottoResourceRouter from './not-zotto-example';
 import { zottoResource } from './zotto-example';
 
+// import NotZottoResourceRouter from './not-zotto-example';
 const app = express();
 
 app.use(express.json());
-app.use(NotZottoResourceRouter);
+// app.use(NotZottoResourceRouter);
 app.use(zottoResource.getRouter());
 
 app.listen(3000, () => {

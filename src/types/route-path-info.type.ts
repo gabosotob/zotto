@@ -4,6 +4,4 @@ export type RoutePathInfo = {
     path: string;
     method: ControllerMethod;
     handlerName: string;
-    isErrorHandler?: boolean;
-    isMiddleware?: boolean;
 };
