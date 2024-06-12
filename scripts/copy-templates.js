@@ -1,6 +1,36 @@
 import { copyFileSync, existsSync, mkdirSync, readdirSync, rmdirSync, statSync, unlinkSync } from 'fs';
 import path, { join } from 'path';
 
+function deleteDirectory(dir) {
+    readdirSync(dir).forEach(file => {
+        const filePath = join(dir, file);
+        const fileStat = statSync(filePath);
+
+        if (fileStat.isDirectory()) {
+            deleteDirectory(filePath);
+        } else {
+            unlinkSync(filePath);
+        }
+    });
+
+    rmdirSync(dir);
+}
+
+function copyFilesRecursive(sourceDir, targetDir) {
+    readdirSync(sourceDir).forEach(file => {
+        const sourcePath = join(sourceDir, file);
+        const targetPath = join(targetDir, file);
+
+        const fileStat = statSync(sourcePath);
+
+        if (fileStat.isDirectory()) {
+            copyFilesRecursive(sourcePath, targetPath);
+        } else {
+            copyFileSync(sourcePath, targetPath);
+        }
+    });
+}
+
 function copyFiles(sourceDir, targetDir) {
     if (existsSync(targetDir)) {
         console.log('Deleting existing target directory...');
@@ -14,28 +44,6 @@ function copyFiles(sourceDir, targetDir) {
     copyFilesRecursive(sourceDir, targetDir);
 
     console.log('Files copied successfully!');
-}
-
-function copyFilesRecursive(sourceDir, targetDir) {
-    for (const file of readdirSync(sourceDir)) {
-        const sourcePath = join(sourceDir, file);
-        const targetPath = join(targetDir, file);
-
-        const fileStat = statSync(sourcePath);
-
-        fileStat.isDirectory() ? copyFilesRecursive(sourcePath, targetPath) : copyFileSync(sourcePath, targetPath);
-    }
-}
-
-function deleteDirectory(dir) {
-    for (const file of readdirSync(dir)) {
-        const filePath = join(dir, file);
-        const fileStat = statSync(filePath);
-
-        fileStat.isDirectory() ? deleteDirectory(filePath) : unlinkSync(filePath);
-    }
-
-    rmdirSync(dir);
 }
 
 const sourceDir = path.resolve(__dirname, '../cli/templates');

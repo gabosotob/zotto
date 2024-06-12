@@ -1,13 +1,13 @@
 import { Response } from 'express';
 
 import { ControllerMethod, STATUS_BY_METHOD } from '../enums/http.enums';
-import { OkResponseFactory } from '../factories/ok-response.factory';
+import OkResponseFactory from '../factories/ok-response.factory';
 import { Func } from '../types';
 import { RouterPathInfo } from '../types/route-path-info.type';
 import MetadataUtils from '../utils/metadata.utils';
 import { toPath } from '../utils/path.utils';
 import { isClassType } from '../utils/type-guards.utils';
-import { controllerErrorExceptionHandler } from './controller-error-exception.handler';
+import controllerErrorExceptionHandler from './controller-error-exception.handler';
 
 interface ControllerConfig {
     method: ControllerMethod;
@@ -33,7 +33,7 @@ export default class ControllerDecoratorFactory {
 
             MetadataUtils.addRouterPathInfo(targetConstructor, routePathInfo);
 
-            // eslint-disable-next-line no-param-reassign
+            // eslint-disable-next-line no-param-reassign, func-names
             descriptor.value = async function (...args: unknown[]) {
                 const res = args[1] as Response;
                 const next = args[2] as Func<void>;

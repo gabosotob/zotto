@@ -1,4 +1,4 @@
-import { ZottoError } from '../classes/exceptions/zotto-error.exception';
+import ZottoError from '../classes/exceptions/zotto-error.exception';
 import { Func } from '../types';
 
 export default function BoundMethod() {

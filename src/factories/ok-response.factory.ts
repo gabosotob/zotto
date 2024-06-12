@@ -1,11 +1,11 @@
-import { OkResponseDto } from '../classes/responses/ok-response.dto';
+import OkResponseDto from '../classes/responses/ok-response.dto';
 
 type OkResponseFactoryPayload = {
     error?: string;
     data?: object | string;
 };
 
-export class OkResponseFactory {
+export default class OkResponseFactory {
     static create({ error, data }: OkResponseFactoryPayload): OkResponseDto {
         const ok = !error;
 

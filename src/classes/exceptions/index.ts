@@ -1,4 +1,6 @@
-export * from './bad-request.exception';
-export * from './http-exception';
-export * from './internal-server-error.exception';
-export * from './not-found.exception';
+import BadRequestException from './bad-request.exception';
+import HttpException from './http-exception';
+import InternalServerError from './internal-server-error.exception';
+import NotFoundException from './not-found.exception';
+
+export { BadRequestException, HttpException, InternalServerError, NotFoundException };

@@ -8,4 +8,4 @@ export const isFunction = (handler: any): handler is Func => typeof handler === 
 export const isClassType = (value: unknown): value is ClassType => !!value?.toString?.().includes('class');
 
 export const isRoutable = (value: unknown): value is Routable =>
-    !!value && typeof value == 'object' && value.hasOwnProperty('getRouter');
+    !!value && typeof value === 'object' && !!Object.getOwnPropertyDescriptor(value, 'getRouter');

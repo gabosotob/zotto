@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import LocalRepo from '../src/classes/repository/local-repo.';
+import { LocalRepo } from '../src';
 import MockCrudService from './mocks/service.mock';
 
 const router = Router();

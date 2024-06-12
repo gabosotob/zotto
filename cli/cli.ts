@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 
-import { newElementCommand } from './commands/new-element.command';
+import newElementCommand from './commands/new-element.command';
 
 const program = new Command();
 

@@ -5,7 +5,7 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
-export class Question {
+export default class Question {
     private answer?: string;
 
     constructor(public question: string) {}

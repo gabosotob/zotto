@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { ZottoError } from '../classes/exceptions/zotto-error.exception';
+import ZottoError from '../classes/exceptions/zotto-error.exception';
 import { ClassType } from '../types/class.type';
 import MetadataUtils from '../utils/metadata.utils';
 import DependencyResolver from './dependency.factory';

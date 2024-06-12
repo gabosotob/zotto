@@ -1,5 +1,6 @@
-export class OkResponseDto {
+export default class OkResponseDto {
     public message?: string;
+
     public data?: unknown;
 
     constructor(

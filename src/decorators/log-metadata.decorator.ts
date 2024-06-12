@@ -1,6 +1,6 @@
-export function LogMetadata() {
+export default function LogMetadata() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
         console.log('target', target);
         console.log('propertyKey', propertyKey);
         console.log('descriptor', descriptor);

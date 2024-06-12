@@ -2,9 +2,9 @@ import { readFileSync } from 'fs';
 import handlebars from 'handlebars';
 import path from 'path';
 
-import { ZottoError } from '../../src/classes/exceptions/zotto-error.exception';
+import ZottoError from '../../src/classes/exceptions/zotto-error.exception';
 
-export class Template {
+export default class Template {
     static getTemplateDelegate(type: string): handlebars.TemplateDelegate {
         const templatePath = path.resolve(__dirname, `../templates/${type}.hbs`);
         let file;

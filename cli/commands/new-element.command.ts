@@ -1,12 +1,12 @@
 import fs from 'fs';
 
-import { Name } from '../classes/name.class';
-import { Path } from '../classes/path.class';
-import { Question } from '../classes/question.class';
-import { Template } from '../classes/templates.class';
+import Name from '../classes/name.class';
+import Path from '../classes/path.class';
+import Question from '../classes/question.class';
+import Template from '../classes/templates.class';
 import { Command } from './command.interface';
 
-export const newElementCommand: Command = {
+const newElementCommand: Command = {
     name: 'new <type> [name]',
     description: 'Create a new element',
     getCommand() {
@@ -34,3 +34,5 @@ export const newElementCommand: Command = {
         };
     },
 };
+
+export default newElementCommand;

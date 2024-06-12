@@ -3,3 +3,4 @@ export * from './decorators';
 export * from './enums';
 export * from './types';
 export * from './factories';
+export * from './interfaces';

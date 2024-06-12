@@ -1,6 +1,6 @@
-/* eslint-disable class-methods-use-this */
-import Repo from '../../src/decorators/repo.decorator';
+import { Repo } from '../../src';
 
+/* eslint-disable class-methods-use-this */
 @Repo()
 export default class StubRepo {
     async find() {

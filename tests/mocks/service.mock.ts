@@ -1,7 +1,4 @@
-import { Id, NotFoundException } from '../../src';
-import LocalRepo from '../../src/classes/repository/local-repo.';
-import Service from '../../src/decorators/service.decorator';
-import { Entity } from '../../src/interfaces/entity.interface';
+import { Entity, Id, LocalRepo, NotFoundException, Service } from '../../src';
 
 @Service()
 export default class MockCrudService<T extends Entity> {

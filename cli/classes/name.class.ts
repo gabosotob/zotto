@@ -1,4 +1,4 @@
-export class Name {
+export default class Name {
     constructor(public name: string) {}
 
     static capitalize(word: string) {
@@ -6,11 +6,9 @@ export class Name {
     }
 
     toPascalCase(word?: string) {
-        if (word) {
-            return word.split(' ').map(Name.capitalize).join('');
-        } else {
-            return this.name.split(' ').map(Name.capitalize).join('');
-        }
+        if (word) return word.split(' ').map(Name.capitalize).join('');
+
+        return this.name.split(' ').map(Name.capitalize).join('');
     }
 
     toKebabCase() {

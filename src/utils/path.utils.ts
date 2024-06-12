@@ -3,9 +3,8 @@ import { EMPTY_PATH, PATH_SEPARATOR } from '../constants/path.constants';
 export const toPath = (path?: string): string => {
     if (path !== undefined) {
         return path.startsWith(PATH_SEPARATOR) ? path : `${PATH_SEPARATOR}${path}`;
-    } else {
-        return EMPTY_PATH;
     }
+    return EMPTY_PATH;
 };
 
 export const joinPaths = (...paths: string[]): string =>
