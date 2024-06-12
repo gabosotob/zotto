@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Repo from '../../decorators/repo.decorator';
 import { Entity } from '../../interfaces/entity.interface';
 import { IRepo } from '../../interfaces/repo.interface';
 import { Id } from '../../types/id.type';
@@ -7,26 +8,15 @@ import { Id } from '../../types/id.type';
  * LocalRepo
  * Serves as a local repository for entities. This is useful for testing and development.
  */
-export class LocalRepo<T extends Entity> implements IRepo<T> {
-    private static instance: LocalRepo<any>;
-
-    private constructor() {}
-
-    static getInstance(): LocalRepo<any> {
-        if (!LocalRepo.instance) {
-            LocalRepo.instance = new LocalRepo();
-        }
-
-        return LocalRepo.instance;
-    }
-
+@Repo()
+export default class LocalRepo<T extends Entity> implements IRepo<T> {
     private entities: Record<Id, T> = {} as Record<Id, T>;
 
     async create(entity: T): Promise<T> {
         const id = Math.floor(Math.random() * 100000000);
-        entity.id = id;
-        this.entities[id] = entity;
-        return entity;
+        const entityCopy = { ...entity, id };
+        this.entities[id] = entityCopy;
+        return entityCopy;
     }
 
     async read(id: Id): Promise<T> {

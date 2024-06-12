@@ -1,25 +1,22 @@
+/* eslint-disable import/no-cycle */
 import { ZottoError } from '../classes/exceptions/zotto-error.exception';
-import { Z_SERVICE_SYMBOL } from '../constants/symbols.constants';
 import { ClassType } from '../types/class.type';
-import { FactoryInstantiable } from '../types/factory-instantiable.type';
-import { Optional } from '../types/optional.type';
+import MetadataUtils from '../utils/metadata.utils';
+import DependencyResolver from './dependency.factory';
 
 /**
  * Factory for creating services, which are classes decorated with "@Service",
  */
-export class ServiceFactory {
-    static create<T>(
-        ServiceClass: Optional<FactoryInstantiable<T>, 'createInstance'>,
-        ...args: ConstructorParameters<ClassType<T>>
-    ) {
+export default class ServiceFactory {
+    static create<T>(ServiceClass: ClassType<T>) {
         // Get the metadata that indicates that the class is a resource
-        const isService = Reflect.getMetadata(Z_SERVICE_SYMBOL, ServiceClass);
-        if (!isService) throw new ZottoError('Service class must be decorated with @Service');
+        if (!MetadataUtils.isZService(ServiceClass))
+            throw new ZottoError('Service class must be decorated with @Service');
 
-        // Create an instance of the resource class
-        const service: T | undefined = ServiceClass.createInstance?.(...args);
+        const dependencyInstances = DependencyResolver.getDependencies(ServiceClass);
 
-        if (!service) throw new ZottoError('Failed to create service instance');
+        // Create an instance of the service class
+        const service: T = new ServiceClass(...dependencyInstances);
 
         return service;
     }

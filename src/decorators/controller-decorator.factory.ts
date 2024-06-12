@@ -1,11 +1,12 @@
 import { Response } from 'express';
 
-import { OkResponseFactory } from '../classes/responses/ok-response.factory';
-import { ROUTE_PATH_INFO_SYMBOL } from '../constants/symbols.constants';
 import { ControllerMethod, STATUS_BY_METHOD } from '../enums/http.enums';
+import { OkResponseFactory } from '../factories/ok-response.factory';
 import { Func } from '../types';
-import { RoutePathInfo } from '../types/route-path-info.type';
+import { RouterPathInfo } from '../types/route-path-info.type';
+import MetadataUtils from '../utils/metadata.utils';
 import { toPath } from '../utils/path.utils';
+import { isClassType } from '../utils/type-guards.utils';
 import { controllerErrorExceptionHandler } from './controller-error-exception.handler';
 
 interface ControllerConfig {
@@ -13,31 +14,32 @@ interface ControllerConfig {
     path?: string;
 }
 
-export class ControllerDecoratorFactory {
+export default class ControllerDecoratorFactory {
     static create(config: ControllerConfig) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        return (target: object, propertyKey: string, descriptor: PropertyDescriptor) => {
             const originalMethod = descriptor.value;
 
-            const routePathInfo: RoutePathInfo = {
+            const routePathInfo: RouterPathInfo = {
                 path: toPath(config.path),
                 method: config.method,
                 handlerName: propertyKey,
             };
 
-            /**
-             * Adds the route path info to the controller class metadata.
-             */
-            const routes: RoutePathInfo[] = Reflect.getMetadata(ROUTE_PATH_INFO_SYMBOL, target.constructor) || [];
-            routes.push(routePathInfo);
+            const { constructor: targetConstructor } = target;
 
-            Reflect.defineMetadata(ROUTE_PATH_INFO_SYMBOL, routes, target.constructor);
+            if (!isClassType(targetConstructor))
+                throw new Error('Controller decorator must be applied to a class method');
 
+            MetadataUtils.addRouterPathInfo(targetConstructor, routePathInfo);
+
+            // eslint-disable-next-line no-param-reassign
             descriptor.value = async function (...args: unknown[]) {
                 const res = args[1] as Response;
                 const next = args[2] as Func<void>;
 
                 let responseData;
+
                 try {
                     responseData = await originalMethod.apply(this, args);
 
@@ -47,7 +49,7 @@ export class ControllerDecoratorFactory {
                     if (config.method === ControllerMethod.USE) {
                         next();
                     } else {
-                        !res.statusCode && res.status(STATUS_BY_METHOD[config.method]);
+                        if (!res.statusCode) res.status(STATUS_BY_METHOD[config.method]);
                         res.json(OkResponseFactory.create({ data: responseData }));
                     }
                 } catch (error) {

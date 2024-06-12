@@ -1,39 +1,38 @@
 import { Id, NotFoundException } from '../../src';
-import { LocalRepo } from '../../src/classes/repository/local-repo.';
-import { Service } from '../../src/decorators/service.decorator';
+import LocalRepo from '../../src/classes/repository/local-repo.';
+import Service from '../../src/decorators/service.decorator';
+import { Entity } from '../../src/interfaces/entity.interface';
 
-const repo = LocalRepo.getInstance();
+@Service()
+export default class MockCrudService<T extends Entity> {
+    constructor(private repo: LocalRepo<T>) {}
 
-@Service
-export class MockCrudService<T extends { id: string | number }> {
     public create(item: T): Promise<T> {
-        return repo.create(item);
+        return this.repo.create(item);
     }
 
     public read(): Promise<T[]> {
-        return repo.readAll();
+        return this.repo.readAll();
     }
 
     public async readById(id: Id): Promise<T> {
-        const item = await repo.read(id);
+        const item = await this.repo.read(id);
         if (!item) throw new NotFoundException('Item not found');
 
         return item;
     }
 
     public async update(id: Id, dto: T): Promise<T> {
-        const item = await repo.read(id);
+        const item = await this.repo.read(id);
         if (!item) throw new NotFoundException('Item not found');
 
-        return repo.update(id, dto);
+        return this.repo.update(id, dto);
     }
 
     public async delete(id: Id): Promise<void> {
-        const item = await repo.read(id);
+        const item = await this.repo.read(id);
         if (!item) throw new NotFoundException('Item not found');
 
-        return repo.delete(id);
+        return this.repo.delete(id);
     }
 }
-
-export default MockCrudService;

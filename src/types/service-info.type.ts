@@ -1,6 +1,3 @@
-import { ClassType } from './class.type';
+import { Dependency } from './dependencies.type';
 
-export type ServiceInfo = {
-    class: ClassType;
-    className: string;
-};
+export type ServiceInfo = Dependency;

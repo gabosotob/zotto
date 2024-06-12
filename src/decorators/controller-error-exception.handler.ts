@@ -1,8 +1,8 @@
 import { Response } from 'express';
 
 import { HttpException } from '../classes/exceptions/http-exception';
-import { OkResponseFactory } from '../classes/responses/ok-response.factory';
 import { HttpStatusEnum } from '../enums/http.enums';
+import { OkResponseFactory } from '../factories/ok-response.factory';
 
 export function controllerErrorExceptionHandler(error: unknown, res: Response) {
     if (error instanceof HttpException) {

@@ -1,4 +1,4 @@
-import { OkResponseDto } from './ok-response.dto';
+import { OkResponseDto } from '../classes/responses/ok-response.dto';
 
 type OkResponseFactoryPayload = {
     error?: string;

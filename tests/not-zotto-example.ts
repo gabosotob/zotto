@@ -1,9 +1,10 @@
 import { Router } from 'express';
 
+import LocalRepo from '../src/classes/repository/local-repo.';
 import MockCrudService from './mocks/service.mock';
 
 const router = Router();
-const service = new MockCrudService();
+const service = new MockCrudService(new LocalRepo());
 
 router.get('/not-zottos', async (_req, res) => {
     try {
@@ -122,4 +123,4 @@ router.delete('/not-zottos/:id', async (req, res) => {
     }
 });
 
-// export default router;
+export default router;

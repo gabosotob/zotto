@@ -1,9 +1,18 @@
-import { Z_SERVICE_SYMBOL } from '../constants/symbols.constants';
-import { FactoryConstructable } from './helpers/factory-constructable.decorator';
+import MetadataUtils from '../utils/metadata.utils';
+import BoundClass from './bound-class.decorator';
+import Injectable from './injectable.decorator';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function Service(target: any) {
-    Reflect.defineMetadata(Z_SERVICE_SYMBOL, true, target);
+/**
+ *
+ * @returns A class decorator that sets the metadata that indicates that the class is a service.
+ */
+export default function Service() {
+    return (target: any) => {
+        MetadataUtils.setAsZService(target);
 
-    return FactoryConstructable(target, 'Service must be constructed with ServiceFactory.create');
+        const BoundedClass = BoundClass()(target);
+        const InjectableClass = Injectable()(BoundedClass);
+
+        return InjectableClass;
+    };
 }
