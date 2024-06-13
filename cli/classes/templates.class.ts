@@ -5,8 +5,8 @@ import path from 'path';
 import ZottoError from '../../src/classes/exceptions/zotto-error.exception';
 
 export default class Template {
-    static getTemplateDelegate(type: string): handlebars.TemplateDelegate {
-        const templatePath = path.resolve(__dirname, `../templates/${type}.hbs`);
+    static getTemplateDelegate(type: string, explained?: boolean): handlebars.TemplateDelegate {
+        const templatePath = path.resolve(__dirname, `../templates/${type}${explained ? '.explained' : ''}.ts.hbs`);
         let file;
         try {
             file = readFileSync(templatePath, 'utf-8');
@@ -19,8 +19,11 @@ export default class Template {
 
     private template: handlebars.TemplateDelegate;
 
-    constructor(private type: string) {
-        this.template = Template.getTemplateDelegate(this.type);
+    constructor(
+        private type: string,
+        explained?: boolean,
+    ) {
+        this.template = Template.getTemplateDelegate(this.type, explained);
     }
 
     render(data: unknown): string {

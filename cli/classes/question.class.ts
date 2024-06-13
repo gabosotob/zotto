@@ -1,31 +1,39 @@
 import readline from 'readline';
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
-
 export default class Question {
     private answer?: string;
 
+    private readLine = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+
     constructor(public question: string) {}
 
-    async ask(): Promise<Question> {
+    async ask(cb?: (...args: any[]) => any): Promise<Question> {
+        if (this.answer) {
+            return this;
+        }
+
         await new Promise(resolve => {
-            rl.question(`${this.question} `, answer => {
+            this.readLine.question(`${this.question} `, answer => {
                 this.answer = answer;
+                this.readLine.close();
+
                 resolve(answer);
             });
         });
+
+        if (cb) await cb(this.didAccept(), this.didDecline(), this.answer);
 
         return this;
     }
 
     didAccept(): boolean | null {
-        return this.answer ? this.answer.toLowerCase() === 'yes' || this.answer.trim() === '' : null;
+        return this.answer ? this.answer.toLowerCase() === 'yes' || this.answer.toLowerCase() === 'y' : null;
     }
 
     didDecline(): boolean | null {
-        return this.answer ? this.answer.toLowerCase() === 'no' : null;
+        return this.answer ? this.answer.toLowerCase() === 'no' || this.answer.toLowerCase() === 'n' : null;
     }
 }

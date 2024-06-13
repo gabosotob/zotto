@@ -1,19 +1,18 @@
 import { Request } from 'express';
 import { Delete, Get, Id, NotFoundException, Post, Put, Resource, ResourceFactory } from 'zotto';
 
-const service = new CrudService();
-
 @Resource('{{path}}')
 class {{className}} {
-    constructor() {}
+    constructor(private service: MyService) {}
+
     @Get()
     getAll() {
-        return service.read();
+        return this.service.read();
     }
 
     @Get(':id')
     async getById({ params }: Request<{ id: Id }>) {
-        const data = await service.readById(params.id);
+        const data = await this.service.readById(params.id);
 
         if (!data) {
             throw new NotFoundException('Not found');
@@ -22,29 +21,29 @@ class {{className}} {
 
     @Post()
     post(req: Request) {
-        return service.create(req.body);
+        return this.service.create(req.body);
     }
 
     @Put(':id')
     async put({ params, body }: Request<{ id: Id }>) {
-        const idData = await service.readById(params.id);
+        const idData = await this.service.readById(params.id);
 
         if (!idData) {
             throw new NotFoundException('Not found');
         }
 
-        return service.update(body);
+        return this.service.update(body);
     }
 
     @Delete(':id')
     async delete({ params }: Request<{ id: Id }>) {
-        const idData = await service.readById(params.id);
+        const idData = await this.service.readById(params.id);
 
         if (!idData) {
             throw new NotFoundException('Not found');
         }
 
-        await service.delete(params.id);
+        await this.service.delete(params.id);
 
         return 'Deleted successfully';
     }

@@ -1,0 +1,123 @@
+import { Request } from 'express';
+import { Delete, Get, Id, NotFoundException, Post, Put, Resource, ResourceFactory } from 'zotto';
+
+/**
+ * @description This is a @Resource decorator that is used to define a new resource
+ * in the Zotto framework. The decorator takes a string parameter that will be used
+ * as the base path for the resource. The class that is decorated with this decorator
+ * needs to be instantiated using the ResourceFactory.create() function.
+ */
+@Resource('{{path}}')
+class {{className}} {
+    /**
+     * @description This is the constructor of the {{className}} class.
+     * @param {MyService} service This is a service that is injected into the class.
+     * You can assign your class dependencies here and use them in your class
+     * as normal class properties. They will be injected automatically by the
+     * Zotto framework.
+     */
+    constructor(private service: MyService) {}
+
+    /**
+     * @description These are Controller Method Decorators that are used to define
+     * new routes in the Zotto framework. If used in a class, the method will be
+     * added as a route handler for the specified path. The method will be called
+     * with the request and response objects as arguments as in Express.js.
+     * The method can return a value that will be sent as a response to the client
+     * with the respective status code, in this case, 200.
+     */
+    @Get()
+    getAll() {
+        return this.service.read();
+    }
+
+    /**
+     * @description This is a @Get decorator that is used to define a new GET route
+     * in the Zotto framework. All Controller Method Decorators takes an optional
+     * string parameter that will be used as the path for the route.
+     * If no parameter is provided, the path will add an empty string to the base
+     * path of the resource, In this case, the full path will be "/{{path}}/:id"
+     * and the :id parameter will be available in the request.params object as
+     * in Express.js.
+     */
+    @Get(':id')
+    async getById({ params }: Request<{ id: Id }>) {
+        const data = await this.service.readById(params.id);
+
+        if (!data) {
+            throw new NotFoundException('Not found');
+        }
+    }
+
+    /**
+     * @description This is a @Post decorator that is used to define a new POST route
+     * in the Zotto framework. This sets the status code of the response to 201 if
+     * the request is successful. Returns the created data in the response body,
+     * by default if returned data is any other type than a string, it will be
+     * sent as a JSON object set in the "data" field of the response body.
+     */
+    @Post()
+    post(req: Request) {
+        return this.service.create(req.body);
+    }
+
+    /**
+     * @description This is a @Put decorator that is used to define a new PUT route
+     * in the Zotto framework. This sets the status code of the response to 200 if
+     * the request is successful.
+     * Also all Controller Methods are wrapped in a try-catch block that catches
+     * any errors thrown by the method and sends them as a response to the client
+     * with the respective status code. The error message defaults to
+     * 500 "Internal Server Error" if no message is provided, in this case, the
+     * message will be "Not found" with a status code of 404 if the data is not found.
+     */
+    @Put(':id')
+    async put({ params, body }: Request<{ id: Id }>) {
+        const idData = await this.service.readById(params.id);
+
+        if (!idData) {
+            throw new NotFoundException('Not found');
+        }
+
+        return this.service.update(body);
+    }
+
+    /**
+     * @description This is a @Delete decorator that is used to define a new DELETE route
+     * in the Zotto framework. This sets the status code of the response to 204 if
+     * the request is successful.
+     * As Delete requests do not have a response body necessarily, the method can
+     * return a string value that will be sent in a "message" field in the response
+     * body. In this case, the message will be "Deleted successfully".
+     */
+    @Delete(':id')
+    async delete({ params }: Request<{ id: Id }>) {
+        const idData = await this.service.readById(params.id);
+
+        if (!idData) {
+            throw new NotFoundException('Not found');
+        }
+
+        await this.service.delete(params.id);
+
+        return 'Deleted successfully';
+    }
+}
+
+/**
+ * @description This is a factory function that creates a new instance of the {{className}} class.
+ * Also this Factory appends a "getRouter()" method to the class. This method returns
+ * an Express Router object that can be used to mount the resource on an Express app.
+ * @returns {{{className}}} A new instance of the {{className}} class.
+ *
+ *
+ * @example
+ * const app = express();
+ *
+ * const resource = ResourceFactory.create({{className}});
+ *
+ * app.use(resource.getRouter());
+ *
+ * app.listen(3000);
+ */
+export default ResourceFactory.create({{className}});

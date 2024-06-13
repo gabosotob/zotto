@@ -10,6 +10,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "start": "nodemon ./tests/sample-server.ts",
+    "start:cli": "ts-node ./cli/cli.ts",
     "build": "pnpm install && tsc && tsup && ts-node ./scripts/copy-templates.js",
     "build:watch": "pnpm install && tsc && tsup --watch",
     "pub": "pnpm run build && npm publish --access public",
@@ -48,6 +49,7 @@
   },
   "dependencies": {
     "commander": "^12.1.0",
+    "comment-json": "^4.2.3",
     "express": "^4.19.2",
     "handlebars": "^4.7.8",
     "readline": "^1.3.0",

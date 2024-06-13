@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 
-import newElementCommand from './commands/new-element.command';
+import newElementCommands from './commands/new-element.command';
+import tsConfigCommand from './commands/tsconfig.command';
 
-const program = new Command();
+const mainProgram = new Command();
 
-program.version('0.0.1').description('A simple CLI program');
-program
-    .command(newElementCommand.name)
-    .description(newElementCommand.description)
-    .action(newElementCommand.getCommand());
+const mapCommand = (command: any) => mainProgram.addCommand(command);
 
-program.parse(process.argv);
+mainProgram.version('0.0.1').description('Zotto CLI tool: A tool to help you create Zotto elements.');
+
+newElementCommands.forEach(mapCommand);
+mainProgram.addCommand(tsConfigCommand);
+
+mainProgram.parse(process.argv);
