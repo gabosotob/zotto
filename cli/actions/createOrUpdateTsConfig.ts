@@ -46,13 +46,16 @@ export default async function createOrUpdateTsConfig() {
     const existingConfig: any = readTsConfigFile();
 
     if (!existingConfig) {
-        const question = await new Question('tsconfig.json file not found, do you want to create it? (yes/no)').ask();
+        const question = new Question('tsconfig.json file not found, do you want to create it? (yes/no)');
+
+        await question.ask();
 
         if (!question.didAccept()) {
             console.log('Operation cancelled!');
-            writeTsConfigFile(completeConfig);
+            return;
         }
 
+        writeTsConfigFile(completeConfig);
         return;
     }
 
