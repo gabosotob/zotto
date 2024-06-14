@@ -8,7 +8,7 @@ const mainProgram = new Command();
 
 const mapCommand = (command: any) => mainProgram.addCommand(command);
 
-mainProgram.version('0.0.6').description('Zotto CLI tool: A tool to help you create Zotto elements.');
+mainProgram.version('0.0.7').description('Zotto CLI tool: A tool to help you create Zotto elements.');
 
 newElementCommands.forEach(mapCommand);
 mainProgram.addCommand(tsConfigCommand);
