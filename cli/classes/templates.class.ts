@@ -6,7 +6,7 @@ import ZottoError from '../../src/classes/exceptions/zotto-error.exception';
 
 export default class Template {
     static getTemplateDelegate(type: string, explained?: boolean): handlebars.TemplateDelegate {
-        const templatePath = path.resolve(__dirname, `../templates/${type}${explained ? '.explained' : ''}.ts.hbs`);
+        const templatePath = path.resolve(__dirname, `./templates/${type}${explained ? '.explained' : ''}.ts.hbs`);
         let file;
         try {
             file = readFileSync(templatePath, 'utf-8');
