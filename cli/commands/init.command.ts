@@ -1,12 +1,12 @@
 import { Command } from 'commander';
 
-import updateTsConfig from '../actions/updateTsConfig';
+import initZottoProject from '../actions/init-zotto-project';
 
-const tsConfigCommand = new Command('tsconfig');
+const initCommand = new Command('init');
 
-tsConfigCommand
+initCommand
     .description('Create or update ts-config.json file to have the required settings for Zotto.')
     .option('-y, --yes', 'Accept all prompts')
-    .action(updateTsConfig);
+    .action(initZottoProject);
 
-export default tsConfigCommand;
+export default initCommand;

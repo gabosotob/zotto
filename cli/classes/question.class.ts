@@ -16,6 +16,8 @@ export default class Question {
         }
 
         await new Promise(resolve => {
+            // eslint-disable-next-line no-console
+            console.clear();
             this.readLine.question(`${this.question} `, answer => {
                 this.answer = answer;
                 this.readLine.close();

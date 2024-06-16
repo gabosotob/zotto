@@ -4,11 +4,11 @@ import Name from '../classes/name.class';
 import Path from '../classes/path.class';
 import Question from '../classes/question.class';
 import Template from '../classes/templates.class';
-import createOrUpdateTsConfig from './createOrUpdateTsConfig';
+import updateTsConfig from './updateTsConfig';
 
 export default function createNewElementCommandAction(elementType: string) {
     return async (name: string, options: { explained: boolean }) => {
-        await createOrUpdateTsConfig();
+        await updateTsConfig();
 
         const { explained } = options;
         const template = new Template(elementType, explained);
