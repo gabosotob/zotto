@@ -3,11 +3,6 @@ import readline from 'readline';
 export default class Question {
     private answer?: string;
 
-    private readLine = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-    });
-
     constructor(public question: string) {}
 
     async ask(cb?: (...args: any[]) => any): Promise<Question> {
@@ -18,9 +13,15 @@ export default class Question {
         await new Promise(resolve => {
             // eslint-disable-next-line no-console
             console.clear();
-            this.readLine.question(`${this.question} `, answer => {
+
+            const readLine = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+            });
+
+            readLine.question(`${this.question} `, answer => {
                 this.answer = answer;
-                this.readLine.close();
+                readLine.close();
 
                 resolve(answer);
             });

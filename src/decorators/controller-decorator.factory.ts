@@ -1,7 +1,6 @@
-import { Response } from 'express';
-
 import { ControllerMethod, STATUS_BY_METHOD } from '../enums/http.enums';
 import OkResponseFactory from '../factories/ok-response.factory';
+import { Response } from '../libs/express.lib';
 import { Func } from '../types';
 import { RouterPathInfo } from '../types/route-path-info.type';
 import MetadataUtils from '../utils/metadata.utils';
