@@ -31,7 +31,7 @@ function initTypescript() {
     console.clear();
     console.log('Creating tsconfig.json...');
 
-    ExecModule.runSync('tsc --init');
+    ExecModule.runSync('npx tsc --init');
 
     console.log('tsconfig.json created successfully!');
 }
@@ -40,7 +40,7 @@ function installTypescriptDependency() {
     console.clear();
     console.log('Installing Typescript...');
 
-    packageManager.installDevPackage('typescript');
+    packageManager.installPackage('typescript');
 
     console.log('Typescript installed successfully!');
 }
