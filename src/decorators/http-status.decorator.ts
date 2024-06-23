@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { Response } from '../libs/express.lib';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default function HttpStatus(status: number) {

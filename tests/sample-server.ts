@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 
-import express from 'express';
-
+import express from '../src/libs/express.lib';
 import NotZottoResourceRouter from './not-zotto-example';
 import { zottoResource } from './zotto-example';
 

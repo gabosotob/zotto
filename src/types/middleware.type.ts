@@ -1,3 +1,3 @@
-import { RequestHandler } from 'express';
+import { RequestHandler } from '../libs/express.lib';
 
 export type Middleware = RequestHandler;

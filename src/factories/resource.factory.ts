@@ -1,6 +1,5 @@
-import { Router } from 'express';
-
 import ZottoError from '../classes/exceptions/zotto-error.exception';
+import { Router } from '../libs/express.lib';
 import { ClassType } from '../types';
 import { Routable } from '../types/routable.type';
 import { RouterPathInfo } from '../types/route-path-info.type';

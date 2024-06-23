@@ -1,6 +1,5 @@
-import { Request } from 'express';
-
 import { Delete, Entity, Get, Id, Post, Put, Resource, ResourceFactory } from '../src';
+import { Request } from '../src/libs/express.lib';
 import MockCrudService from './mocks/service.mock';
 
 @Resource('zottos')
