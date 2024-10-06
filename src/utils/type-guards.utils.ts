@@ -3,7 +3,7 @@ import { ClassType } from '../types';
 import { Func } from '../types/function.type';
 import { Routable } from '../types/routable.type';
 
-export const isFunction = (handler: any): handler is Func => typeof handler === 'function';
+export const isFunction = (value: unknown): value is Func => typeof value === 'function';
 
 export const isClassType = (value: unknown): value is ClassType => !!value?.toString?.().includes('class');
 

@@ -14,8 +14,6 @@ export default function Resource(name: string) {
         MetadataUtils.setBasePath(target, toPath(name));
         MetadataUtils.setAsZResource(target);
 
-        const BoundedClass = BoundClass()(target);
-
-        return BoundedClass;
+        return BoundClass()(target);
     };
 }

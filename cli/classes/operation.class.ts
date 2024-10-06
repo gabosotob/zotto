@@ -2,8 +2,8 @@ import Question from './question.class';
 
 export default class Operation {
     constructor(
-        private question: Question,
-        private operation: (...args: any[]) => any,
+        private readonly question: Question,
+        private readonly operation: (...args: any[]) => any,
     ) {}
 
     confirm() {

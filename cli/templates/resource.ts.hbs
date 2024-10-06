@@ -3,7 +3,7 @@ import { Delete, Get, Id, NotFoundException, Post, Put, Resource, ResourceFactor
 
 @Resource('{{path}}')
 class {{className}} {
-    constructor(private service: MyService) {}
+    constructor(private readonly service: any) {}
 
     @Get()
     getAll() {
@@ -17,6 +17,8 @@ class {{className}} {
         if (!data) {
             throw new NotFoundException('Not found');
         }
+
+        return data;
     }
 
     @Post()

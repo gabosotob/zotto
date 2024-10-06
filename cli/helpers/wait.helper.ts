@@ -4,4 +4,4 @@ export default function wait(ms: number) {
     });
 }
 
-export const DEFAULT_WAIT_TIME = 3000;
+export const DEFAULT_WAIT_TIME = 2000;

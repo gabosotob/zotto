@@ -11,8 +11,7 @@ export default function Service() {
         MetadataUtils.setAsZService(target);
 
         const BoundedClass = BoundClass()(target);
-        const InjectableClass = Injectable()(BoundedClass);
 
-        return InjectableClass;
+        return Injectable()(BoundedClass);
     };
 }

@@ -1,12 +1,12 @@
+import controllerErrorExceptionHandler from '../decorators/controller-error-exception.handler';
 import { ControllerMethod, STATUS_BY_METHOD } from '../enums/http.enums';
-import OkResponseFactory from '../factories/ok-response.factory';
 import { Response } from '../libs/express.lib';
 import { Func } from '../types';
 import { RouterPathInfo } from '../types/route-path-info.type';
 import MetadataUtils from '../utils/metadata.utils';
 import { toPath } from '../utils/path.utils';
 import { isClassType } from '../utils/type-guards.utils';
-import controllerErrorExceptionHandler from './controller-error-exception.handler';
+import OkResponseFactory from './ok-response.factory';
 
 interface ControllerConfig {
     method: ControllerMethod;
@@ -47,7 +47,7 @@ export default class ControllerDecoratorFactory {
                      */
                     if (config.method === ControllerMethod.USE) {
                         next();
-                    } else {
+                    } else if (!res.headersSent) {
                         if (!res.statusCode) res.status(STATUS_BY_METHOD[config.method]);
                         res.json(OkResponseFactory.create({ data: responseData }));
                     }

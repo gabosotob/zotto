@@ -1,5 +1,5 @@
 import { ControllerMethod } from '../enums';
-import ControllerDecoratorFactory from './controller-decorator.factory';
+import ControllerDecoratorFactory from '../factories/controller-decorator.factory';
 
 export const Get = (path?: string) => ControllerDecoratorFactory.create({ method: ControllerMethod.GET, path });
 export const Post = (path?: string) => ControllerDecoratorFactory.create({ method: ControllerMethod.POST, path });

@@ -7,12 +7,12 @@ import tsConfigCommand from './commands/tsconfig.command';
 
 const mainProgram = new Command();
 
-const mapCommand = (command: any) => mainProgram.addCommand(command);
+const addCommandToMainProgram = (command: Command) => mainProgram.addCommand(command);
 
-mainProgram.version('0.0.9').description('Zotto CLI tool: A tool to help you create Zotto elements.');
+mainProgram.version('0.0.10').description('Zotto CLI tool: A tool to help you create Zotto elements.');
 
-newElementCommands.forEach(mapCommand);
-mainProgram.addCommand(tsConfigCommand);
-mainProgram.addCommand(initCommand);
+newElementCommands.forEach(addCommandToMainProgram);
+addCommandToMainProgram(tsConfigCommand);
+addCommandToMainProgram(initCommand);
 
 mainProgram.parse(process.argv);

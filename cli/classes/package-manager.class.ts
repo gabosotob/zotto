@@ -1,19 +1,40 @@
-import { DEFAULT_PACKAGE_MANAGER, PACKAGE_MANAGERS_INFO } from '../constants/package-managers.constants';
+import { PackageManagerEnum, PackageManagerLockFile } from '../enums/package-manager.enum';
+import { PackageManagerInfo } from '../types/package-manager-info.type';
 import ExecModule from './exec-module.class';
-import FSHelper from './fs-helper.class';
+import FsHelper from './fs-helper.class';
 
 /* eslint-disable no-console */
 export class PackageManager {
+    private readonly DEFAULT_PACKAGE_MANAGER = PackageManagerEnum.NPM;
+
+    private readonly PACKAGE_MANAGERS_INFO: PackageManagerInfo[] = [
+        {
+            name: PackageManagerEnum.NPM,
+            lockFile: PackageManagerLockFile.PACKAGE_LOCK_JSON,
+            installCommand: `${PackageManagerEnum.NPM} install`,
+        },
+        {
+            name: PackageManagerEnum.YARN,
+            lockFile: PackageManagerLockFile.YARN_LOCK,
+            installCommand: `${PackageManagerEnum.YARN} install`,
+        },
+        {
+            name: PackageManagerEnum.PNPM,
+            lockFile: PackageManagerLockFile.PNPM_LOCK_YAML,
+            installCommand: `${PackageManagerEnum.PNPM} install`,
+        },
+    ];
+
     private packageManager?: string;
 
     constructor() {
-        if (!this.packageManager) this.resolvePackageManager();
+        this.resolvePackageManager();
     }
 
     private resolvePackageManager() {
-        const packageManager = PACKAGE_MANAGERS_INFO.find(({ lockFile }) => FSHelper.checkFileExists(lockFile));
+        const packageManager = this.PACKAGE_MANAGERS_INFO.find(({ lockFile }) => FsHelper.checkFileExists(lockFile));
 
-        this.packageManager = packageManager?.name ?? DEFAULT_PACKAGE_MANAGER;
+        this.packageManager = packageManager?.name ?? this.DEFAULT_PACKAGE_MANAGER;
     }
 
     getPackageManager() {
@@ -66,7 +87,7 @@ export class PackageManager {
 
     // eslint-disable-next-line class-methods-use-this
     checkDependencyInstalled(packageName: string) {
-        const packageJson: any = FSHelper.getPackageJson();
+        const packageJson: any = FsHelper.getPackageJson();
 
         return packageJson?.dependencies?.[packageName] || packageJson?.devDependencies?.[packageName];
     }

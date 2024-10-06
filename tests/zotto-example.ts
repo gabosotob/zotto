@@ -4,7 +4,7 @@ import MockCrudService from './mocks/service.mock';
 
 @Resource('zottos')
 export class ZottoResource {
-    constructor(private service: MockCrudService<Entity>) {}
+    constructor(private readonly service: MockCrudService<Entity>) {}
 
     @Get()
     getAll() {

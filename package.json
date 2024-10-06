@@ -1,6 +1,6 @@
 {
   "name": "zotto",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Components for building a CRUD express.js app",
   "bin": {
     "zotto": "./dist/cli/cli.js"

@@ -11,12 +11,12 @@ import { Delete, Get, Id, NotFoundException, Post, Put, Resource, ResourceFactor
 class {{className}} {
     /**
      * @description This is the constructor of the {{className}} class.
-     * @param {MyService} service This is a service that is injected into the class.
+     * @param {any} service This is a service that is injected into the class.
      * You can assign your class dependencies here and use them in your class
      * as normal class properties. They will be injected automatically by the
-     * Zotto framework.
+     * Zotto factory.
      */
-    constructor(private service: MyService) {}
+    constructor(private readonly service: any) {}
 
     /**
      * @description These are Controller Method Decorators that are used to define
@@ -47,6 +47,8 @@ class {{className}} {
         if (!data) {
             throw new NotFoundException('Not found');
         }
+
+        return data;
     }
 
     /**
