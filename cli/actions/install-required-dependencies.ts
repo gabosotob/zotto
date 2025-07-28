@@ -2,11 +2,11 @@
 import FsHelper from '../classes/fs-helper.class';
 import Operation from '../classes/operation.class';
 import packageManager from '../classes/package-manager.class';
+import { REQUIRED_DEPENDENCIES, REQUIRED_DEV_DEPENDENCIES } from '../constants/required-dependencies.constants';
 import { CommandFlags } from '../types/command-flag.type';
 import { isEmpty, length } from '../utils/conditionals.util';
 
-const REQUIRED_DEPENDENCIES = ['express', 'typescript', 'zotto'];
-const REQUIRED_DEV_DEPENDENCIES = ['@types/node', '@types/express', 'ts-node', 'nodemon'];
+
 
 function getMissingDependencies() {
     const packageJson = FsHelper.getPackageJson() as {
