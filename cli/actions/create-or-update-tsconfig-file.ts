@@ -28,13 +28,20 @@ type TsConfig = {
     compilerOptions: {
         experimentalDecorators?: boolean;
         emitDecoratorMetadata?: boolean;
+        module?: string;
+        esModuleInterop?: boolean;
+        verbatimModuleSyntax?: boolean;
     };
 };
 
 const isTsConfig = (config: any): config is TsConfig => isObject(config) && !isNil(config.compilerOptions);
 
 const hasRequiredSettings = (config: Partial<TsConfig>): boolean =>
-    !!config.compilerOptions?.emitDecoratorMetadata && !!config.compilerOptions?.experimentalDecorators;
+    !!config.compilerOptions?.emitDecoratorMetadata &&
+    !!config.compilerOptions?.experimentalDecorators &&
+    config.compilerOptions?.module?.toLowerCase() === 'commonjs' &&
+    !!config.compilerOptions?.esModuleInterop &&
+    !config.compilerOptions?.verbatimModuleSyntax;
 
 async function updateTsConfigFile(config: any, options?: { noComments?: boolean }) {
     console.clear();
@@ -55,6 +62,9 @@ export default async function createOrUpdateTsConfigFile({ yes }: CommandFlags) 
 
     existingConfig.compilerOptions.experimentalDecorators = true;
     existingConfig.compilerOptions.emitDecoratorMetadata = true;
+    existingConfig.compilerOptions.module = 'commonjs';
+    existingConfig.compilerOptions.esModuleInterop = true;
+    delete existingConfig.compilerOptions.verbatimModuleSyntax;
 
     if (fileWasGenerated) {
         updateTsConfigFile(existingConfig, { noComments: true });
