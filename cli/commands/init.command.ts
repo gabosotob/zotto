@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 
 import createIndexFile from '../actions/create-index-file';
+import createOrUpdateStartScript from '../actions/create-or-update-start-script';
 import createOrUpdateTsConfigFile from '../actions/create-or-update-tsconfig-file';
 import createSampleResourceElement from '../actions/create-sample-resource-element';
 import initNodeProjectAction from '../actions/init-node-project';
@@ -31,6 +32,8 @@ initCommand
         await installRequiredDependencies({ yes: flags.yes, fast: flags.fast });
 
         await createOrUpdateTsConfigFile({ yes: flags.yes, fast: flags.fast });
+
+        createOrUpdateStartScript();
 
         createIndexFile();
 
