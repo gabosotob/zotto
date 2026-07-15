@@ -1,5 +1,45 @@
 import { Request } from 'express';
-import { Delete, Get, Id, NotFoundException, Post, Put, Resource, ResourceFactory } from 'zotto';
+import { Delete, Entity, Get, Id, LocalRepo, NotFoundException, Post, Put, Resource, ResourceFactory, Service } from 'zotto';
+
+/**
+ * @description This is the shape of the data this resource works with. It must
+ * extend the built-in "Entity" interface, which just requires an "id" field.
+ */
+interface {{className}}Entity extends Entity {
+    name: string;
+}
+
+/**
+ * @description This is a @Service decorator that marks this class as an injectable
+ * service. Services are where you put your business logic, and they can have their
+ * own dependencies injected into them, such as this "LocalRepo", which is an
+ * in-memory repository useful for testing and development. In a real app you would
+ * likely inject a database-backed repo instead.
+ */
+@Service()
+class {{className}}Service {
+    constructor(private readonly repo: LocalRepo<{{className}}Entity>) {}
+
+    read() {
+        return this.repo.readAll();
+    }
+
+    readById(id: Id) {
+        return this.repo.read(id);
+    }
+
+    create(entity: {{className}}Entity) {
+        return this.repo.create(entity);
+    }
+
+    update(id: Id, entity: {{className}}Entity) {
+        return this.repo.update(id, entity);
+    }
+
+    delete(id: Id) {
+        return this.repo.delete(id);
+    }
+}
 
 /**
  * @description This is a @Resource decorator that is used to define a new resource
@@ -11,12 +51,16 @@ import { Delete, Get, Id, NotFoundException, Post, Put, Resource, ResourceFactor
 class {{className}} {
     /**
      * @description This is the constructor of the {{className}} class.
-     * @param {any} service This is a service that is injected into the class.
+     * @param service This is a service that is injected into the class. Zotto's DI
+     * resolves dependencies from TypeScript's emitted type metadata, so the
+     * constructor parameter must be typed as a real class decorated with @Service,
+     * @Repo, @Driver, or @Injectable — never "any", since no metadata is emitted
+     * for that type and it can't be resolved.
      * You can assign your class dependencies here and use them in your class
      * as normal class properties. They will be injected automatically by the
      * Zotto factory.
      */
-    constructor(private readonly service: any) {}
+    constructor(private readonly service: {{className}}Service) {}
 
     /**
      * @description These are Controller Method Decorators that are used to define
@@ -81,7 +125,7 @@ class {{className}} {
             throw new NotFoundException('Not found');
         }
 
-        return this.service.update(body);
+        return this.service.update(params.id, body);
     }
 
     /**

@@ -1,9 +1,38 @@
 import { Request } from 'express';
-import { Delete, Get, Id, NotFoundException, Post, Put, Resource, ResourceFactory } from 'zotto';
+import { Delete, Entity, Get, Id, LocalRepo, NotFoundException, Post, Put, Resource, ResourceFactory, Service } from 'zotto';
+
+interface {{className}}Entity extends Entity {
+    name: string;
+}
+
+@Service()
+class {{className}}Service {
+    constructor(private readonly repo: LocalRepo<{{className}}Entity>) {}
+
+    read() {
+        return this.repo.readAll();
+    }
+
+    readById(id: Id) {
+        return this.repo.read(id);
+    }
+
+    create(entity: {{className}}Entity) {
+        return this.repo.create(entity);
+    }
+
+    update(id: Id, entity: {{className}}Entity) {
+        return this.repo.update(id, entity);
+    }
+
+    delete(id: Id) {
+        return this.repo.delete(id);
+    }
+}
 
 @Resource('{{path}}')
 class {{className}} {
-    constructor(private readonly service: any) {}
+    constructor(private readonly service: {{className}}Service) {}
 
     @Get()
     getAll() {
@@ -34,7 +63,7 @@ class {{className}} {
             throw new NotFoundException('Not found');
         }
 
-        return this.service.update(body);
+        return this.service.update(params.id, body);
     }
 
     @Delete(':id')
